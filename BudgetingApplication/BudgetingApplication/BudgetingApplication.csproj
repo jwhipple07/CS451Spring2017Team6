@@ -237,6 +237,8 @@
     <Content Include="scripts\JS\Highcharts-5.0.10\api\css\font-awesome.min.css" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\css\jquery-ui.min.css" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\css\jquery.sidr.bare.css" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\fonts\fontawesome-webfont.woff" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\fonts\fontawesome-webfont.woff2" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\highcharts.html" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-114x114.png" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-120x120.png" />
@@ -255,6 +257,7 @@
     <Content Include="scripts\JS\Highcharts-5.0.10\api\images\Highcharts.svg" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\images\sprite.png" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\js\api.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\js\highcharts.json" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\js\jquery-1.11.3.min.js" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\js\jquery-ui.min.js" />
     <Content Include="scripts\JS\Highcharts-5.0.10\api\js\jquery.sidr.min.js" />
@@ -589,9 +592,6 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Transactions\SplitTransaction.cshtml" />
-    <Content Include="scripts\JS\Highcharts-5.0.10\api\fonts\fontawesome-webfont.woff" />
-    <Content Include="scripts\JS\Highcharts-5.0.10\api\fonts\fontawesome-webfont.woff2" />
-    <Content Include="scripts\JS\Highcharts-5.0.10\api\js\highcharts.json" />
     <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
