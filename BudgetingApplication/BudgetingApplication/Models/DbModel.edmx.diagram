@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fece47fd9dfd4e8d9a78d0b1752909b8" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="DataModel.Account" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.Badge" Width="1.5" PointX="3.75" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.Client" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.PointsRecord" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.sysdiagram" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataModel.Transaction" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="DataModel.FK_Account_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="DataModel.FK_Transaction_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="DataModel.FK_PointsRecord_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="DataModel.FK_SavingsGoal_Client" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DataModel.BudgetGoal" Width="1.5" PointX="3" PointY="6.875" />
+        <EntityTypeShape EntityType="DataModel.Category" Width="1.5" PointX="7.375" PointY="5.125" />
+        <EntityTypeShape EntityType="DataModel.Categories_VW" Width="1.5" PointX="0.5" PointY="0.875" />
+        <AssociationConnector Association="DataModel.FK_BudgetGoal_Category" />
+        <AssociationConnector Association="DataModel.FK_BudgetGoal_Client" />
+        <AssociationConnector Association="DataModel.FK_Category_Category" />
+        <AssociationConnector Association="DataModel.FK_Transaction_Category" />
+        <EntityTypeShape EntityType="DataModel.ClientBadge" Width="1.5" PointX="6" PointY="12.625" />
+        <AssociationConnector Association="DataModel.FK_ClientBadge_Badge" />
+        <AssociationConnector Association="DataModel.FK_ClientBadge_Client" />
+        <EntityTypeShape EntityType="DataModel.SavingsGoal" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="DataModel.FK_SavingsGoal_ClientID" />
+        <EntityTypeShape EntityType="DataModel.BudgetGoals_VW" Width="1.5" PointX="5.375" PointY="8.75" />
+
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
