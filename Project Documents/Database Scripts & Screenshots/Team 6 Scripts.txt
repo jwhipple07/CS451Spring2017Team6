@@ -1,0 +1,328 @@
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[Account]    Script Date: 5/7/2017 6:46:45 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Account](
+	[AccountNo] [int] IDENTITY(1,1) NOT NULL,
+	[ClientID] [int] NOT NULL,
+	[AccountType] [varchar](10) NOT NULL,
+ CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED 
+(
+	[AccountNo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Account]  WITH CHECK ADD  CONSTRAINT [FK_Account_Client] FOREIGN KEY([ClientID])
+REFERENCES [dbo].[Client] ([ClientID])
+GO
+
+ALTER TABLE [dbo].[Account] CHECK CONSTRAINT [FK_Account_Client]
+GO
+
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[Badge]    Script Date: 5/7/2017 6:50:23 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Badge](
+	[BadgeID] [int] IDENTITY(1,1) NOT NULL,
+	[BadgeName] [varchar](25) NULL,
+	[Description] [text] NULL,
+	[Status] [char](10) NOT NULL,
+ CONSTRAINT [PK_Badge] PRIMARY KEY CLUSTERED 
+(
+	[BadgeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[BudgetGoal]    Script Date: 5/7/2017 6:50:52 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[BudgetGoal](
+	[BudgetGoalID] [int] IDENTITY(1,1) NOT NULL,
+	[ClientID] [int] NOT NULL,
+	[GoalCategory] [int] NOT NULL,
+	[BudgetPointValue] [int] NOT NULL,
+	[BudgetGoalAmount] [money] NOT NULL,
+	[Month] [date] NOT NULL,
+	[Status] [char](10) NOT NULL,
+	[Description] [text] NULL,
+ CONSTRAINT [PK_BudgetGoal] PRIMARY KEY CLUSTERED 
+(
+	[BudgetGoalID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[BudgetGoal]  WITH CHECK ADD  CONSTRAINT [FK_BudgetGoal_Category] FOREIGN KEY([GoalCategory])
+REFERENCES [dbo].[Category] ([CategoryID])
+GO
+
+ALTER TABLE [dbo].[BudgetGoal] CHECK CONSTRAINT [FK_BudgetGoal_Category]
+GO
+
+ALTER TABLE [dbo].[BudgetGoal]  WITH CHECK ADD  CONSTRAINT [FK_BudgetGoal_Client] FOREIGN KEY([ClientID])
+REFERENCES [dbo].[Client] ([ClientID])
+GO
+
+ALTER TABLE [dbo].[BudgetGoal] CHECK CONSTRAINT [FK_BudgetGoal_Client]
+GO
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[Category]    Script Date: 5/7/2017 6:51:16 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Category](
+	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
+	[ParentCategoryID] [int] NULL,
+	[CategoryType] [varchar](20) NOT NULL,
+	[DateAdded] [date] NOT NULL,
+ CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED 
+(
+	[CategoryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Category]  WITH CHECK ADD  CONSTRAINT [FK_Category_Category] FOREIGN KEY([ParentCategoryID])
+REFERENCES [dbo].[Category] ([CategoryID])
+GO
+
+ALTER TABLE [dbo].[Category] CHECK CONSTRAINT [FK_Category_Category]
+GO
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[Category]    Script Date: 5/7/2017 6:51:16 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Category](
+	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
+	[ParentCategoryID] [int] NULL,
+	[CategoryType] [varchar](20) NOT NULL,
+	[DateAdded] [date] NOT NULL,
+ CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED 
+(
+	[CategoryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Category]  WITH CHECK ADD  CONSTRAINT [FK_Category_Category] FOREIGN KEY([ParentCategoryID])
+REFERENCES [dbo].[Category] ([CategoryID])
+GO
+
+ALTER TABLE [dbo].[Category] CHECK CONSTRAINT [FK_Category_Category]
+GO
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[Client]    Script Date: 5/7/2017 6:51:30 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Client](
+	[ClientID] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [varchar](20) NOT NULL,
+	[Password] [varchar](20) NOT NULL,
+	[FirstName] [varchar](20) NOT NULL,
+	[LastName] [varchar](20) NOT NULL,
+	[Birthdate] [date] NOT NULL,
+	[Email] [nvarchar](50) NOT NULL,
+	[Phone] [varchar](20) NOT NULL,
+	[Address] [varchar](50) NOT NULL,
+	[City] [varchar](20) NOT NULL,
+	[State] [varchar](2) NOT NULL,
+	[Notify] [varchar](1) NOT NULL,
+	[PhotoURL] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Client] PRIMARY KEY CLUSTERED 
+(
+	[ClientID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[ClientBadge]    Script Date: 5/7/2017 6:53:43 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ClientBadge](
+	[BadgeID] [int] NOT NULL,
+	[ClientID] [int] NOT NULL,
+	[Timestamp] [timestamp] NOT NULL,
+	[Status] [varchar](10) NOT NULL,
+	[DateEarned] [datetime] NULL
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[ClientBadge] ADD  CONSTRAINT [DF_ClientBadge_DateEarned]  DEFAULT (getdate()) FOR [DateEarned]
+GO
+
+ALTER TABLE [dbo].[ClientBadge]  WITH CHECK ADD  CONSTRAINT [FK_BadgeID_BadgeID] FOREIGN KEY([BadgeID])
+REFERENCES [dbo].[Badge] ([BadgeID])
+GO
+
+ALTER TABLE [dbo].[ClientBadge] CHECK CONSTRAINT [FK_BadgeID_BadgeID]
+GO
+
+ALTER TABLE [dbo].[ClientBadge]  WITH CHECK ADD  CONSTRAINT [FK_ClientID_ClientID] FOREIGN KEY([ClientID])
+REFERENCES [dbo].[Client] ([ClientID])
+GO
+
+ALTER TABLE [dbo].[ClientBadge] CHECK CONSTRAINT [FK_ClientID_ClientID]
+GO
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[PointsRecord]    Script Date: 5/7/2017 6:53:55 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PointsRecord](
+	[RecordID] [int] IDENTITY(1,1) NOT NULL,
+	[ClientID] [int] NOT NULL,
+	[PointsAdded] [int] NOT NULL,
+	[DateAdded] [date] NOT NULL,
+ CONSTRAINT [PK_PointsRecord] PRIMARY KEY CLUSTERED 
+(
+	[RecordID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[PointsRecord]  WITH CHECK ADD  CONSTRAINT [FK_PointsRecord_Client] FOREIGN KEY([ClientID])
+REFERENCES [dbo].[Client] ([ClientID])
+GO
+
+ALTER TABLE [dbo].[PointsRecord] CHECK CONSTRAINT [FK_PointsRecord_Client]
+GO
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[SavingsGoal]    Script Date: 5/7/2017 6:54:30 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[SavingsGoal](
+	[SavingGoalID] [int] IDENTITY(1,1) NOT NULL,
+	[ClientID] [int] NOT NULL,
+	[GoalDescription] [text] NULL,
+	[StartDate] [date] NOT NULL,
+	[EndDate] [date] NOT NULL,
+	[SavingsPointValue] [int] NULL,
+	[SavingsGoalAmount] [money] NOT NULL,
+	[CurrentGoalAmount] [money] NOT NULL,
+	[Recurring] [char](10) NOT NULL,
+	[Status] [char](10) NOT NULL,
+ CONSTRAINT [PK_SavingsGoal] PRIMARY KEY CLUSTERED 
+(
+	[SavingGoalID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[SavingsGoal]  WITH CHECK ADD  CONSTRAINT [FK_SavingsGoal_ClientID] FOREIGN KEY([ClientID])
+REFERENCES [dbo].[Client] ([ClientID])
+GO
+
+ALTER TABLE [dbo].[SavingsGoal] CHECK CONSTRAINT [FK_SavingsGoal_ClientID]
+GO
+
+USE [cs451]
+GO
+
+/****** Object:  Table [dbo].[Transactions]    Script Date: 5/7/2017 6:54:47 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Transactions](
+	[TransactionNo] [int] IDENTITY(1,1) NOT NULL,
+	[TransactionAccountNo] [int] NOT NULL,
+	[CategoryID] [int] NOT NULL,
+	[TransactionAmount] [money] NOT NULL,
+	[TransactionDate] [date] NOT NULL,
+	[Description] [text] NULL,
+ CONSTRAINT [PK_Transaction] PRIMARY KEY CLUSTERED 
+(
+	[TransactionNo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Transactions]  WITH CHECK ADD  CONSTRAINT [FK_Transaction_Account] FOREIGN KEY([TransactionAccountNo])
+REFERENCES [dbo].[Account] ([AccountNo])
+GO
+
+ALTER TABLE [dbo].[Transactions] CHECK CONSTRAINT [FK_Transaction_Account]
+GO
+
+ALTER TABLE [dbo].[Transactions]  WITH CHECK ADD  CONSTRAINT [FK_Transaction_Category] FOREIGN KEY([CategoryID])
+REFERENCES [dbo].[Category] ([CategoryID])
+GO
+
+ALTER TABLE [dbo].[Transactions] CHECK CONSTRAINT [FK_Transaction_Category]
+GO
+
