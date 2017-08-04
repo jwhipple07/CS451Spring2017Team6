@@ -1,0 +1,472 @@
+﻿body {
+    padding-top: 125px;
+}
+
+html, body {
+    background: #f9f9f9;
+    font-family: Calibri,Open Sans,sans-serif;
+}
+
+canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.mainBody {
+        height:95vh;
+    min-height: calc(100vh - 105px);
+    max-height:  calc(100vh - 105px);
+    overflow: auto;
+}
+
+/* Nav Bar */
+/* custom CSS for small screens */
+@media (max-width: 500px) {
+    .navBanner {
+        min-width:100px;
+    }
+    #banner-brand {
+        width: 150px!important;
+        height: 30px;
+        background-color: #006f51;
+    }
+    .bGoalLower{        
+        font-size: x-small;
+        margin-bottom: 10px;
+    }
+    #UserArea {
+        font-size:small;
+    }
+}
+
+
+.navBanner {
+    background-color: #006f51;
+    padding: 0;
+    margin: 0;
+    height: 50px;
+}
+
+    .navBanner button {
+        border-color: rgb(2, 58, 43);
+    }
+
+        .navBanner button:hover, .navBanner button:active {
+            background-color: rgb(2, 58, 43);
+        }
+
+        .navBanner button:focus {
+            background-color: #006f51 !important;
+        }
+
+    .navBanner .icon-bar {
+        background-color: rgb(255, 255, 255);
+    }
+
+.navLinks {
+    background: #6ab244;
+    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+}
+
+    .navLinks a {
+        color: white !important;
+        padding: 15px;
+        text-decoration: none;
+    }
+
+        .navLinks a:hover, .navLinks a:focus {
+            background-color: #b3d78b !important;
+            padding: 15px;
+            text-decoration: none;
+        }
+.navbar-text{
+    color:white;
+}
+
+.active-indicator {
+    height: 4px;
+    width: 100%;
+    background: #b3d78b;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#banner-brand {
+    width: 225px;
+    height: 50px;
+    background-color: #006f51;
+}
+
+
+.content-wrap {
+    margin: 0 auto;
+    max-width: 1200px;
+    clear: both;
+}
+
+
+
+/*sidebar properties*/
+.custom-sidebar {
+    min-height: 150px !important;
+    min-width: 150px;
+    max-width: 150px;
+    padding: 0 10px;
+    position: relative;
+    left: 5%;
+    top: 5%;
+    float: left;
+    background-color: rgba(242, 242, 242, 1);
+}
+
+.tooltip-inner {
+    min-width: 150px;
+}
+
+.dropdown-menu > li span {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+
+    .dropdown-menu > li span:hover {
+        cursor: pointer;
+        background-color: #e2e2e2;
+    }
+
+.badgeImage {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.incomeBox {
+    border: 1px solid #ccc;
+    /*margin-top: 55px;*/
+    padding-top: 10px;
+    background-color: rgba(242, 242, 242, 1);
+    text-align: center;
+}
+.sidebarToggled {
+    left: 210px;
+}
+
+#showSidebar{
+    position:fixed;
+    top:50vh;
+    z-index:1000;
+    float:left;
+}
+#showSidebar button{
+    position: relative;
+    left:-20px;
+    padding: 9px 10px;
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-color: #006f51;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#showSidebar button:hover{
+    background-color: rgb(2, 58, 43);
+}
+
+#showSidebar .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    background-color:white;
+}
+
+#showSidebar .icon-bar+.icon-bar {
+    margin-top: 4px;
+}
+#hoveringSidebar{
+    display:none;
+    min-width:220px;
+    max-width:220px;
+    background-color:#6ab244;
+    position:fixed;
+    top:50px;
+    z-index:900;
+    float:left;
+        height:95vh;
+    max-height:calc(100vh - 50px);
+    min-height:calc(100vh - 50px);
+    overflow:auto;
+    padding-left:5px;
+}
+#closeSideBar {
+    color:white;
+    text-align:right;
+    padding: 0px 10px;
+}
+#warnings{
+    max-height:150px;
+    overflow-y:auto;
+}
+#warnings>div{
+    padding:5px;
+    margin:5px;
+}
+#UserArea{
+    margin-top:10px;
+}
+#UserArea table{
+    border:1px solid #cacaca;
+}
+#UserArea tr{
+ background-color:#FFF!important;
+}   
+
+/*Overview page*/
+#graphContainer {
+    min-height: 150px;
+}
+#noGraphData{
+    text-align:center;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    min-height: 350px;
+    font-weight: 900;
+    font-size:x-large;
+}
+#showCharts{
+    
+}
+/* budget goals Page */
+#budgetGoalContainer,
+.bGoalContainer {
+    margin: 0 auto;
+    /*min-width: 500px;*/
+    max-width: 500px;
+    border-top: 1px solid #e0dcdc;
+    border-bottom: 1px solid #e0dcdc;
+    margin-bottom: 10px;
+}
+
+.bGoalContainerSubmit {
+    margin: 0 auto;
+    /*min-width: 500px;*/
+    max-width: 500px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.bGoalContainer:hover {
+    background-color: #dff0d8;
+}
+
+.bGoalUpper {
+    width: 100%;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.bGoalLower {
+    margin-top: -10px;
+}
+
+.bGoalLabel {
+}
+
+.bGoalAmount {
+    float: right;
+}
+
+.bGoalProgress {
+    display: block;
+}
+
+.bGoal-parent-label {
+}
+
+.bGoal-child-label {
+    font-weight: bold;
+}
+
+.bGoal-amount {
+    font-weight: bold;
+}
+
+.bGoalIncome-sidebar {
+    text-align: center;
+}
+
+.bGoalIncome-sidebar-amount {
+}
+
+    .bGoalIncome-sidebar-amount span {
+        font-weight: bold;
+        color: green;
+    }
+
+/*saving goals page*/
+.sGoal-label{
+    font-size:larger;
+    font-weight:bolder;
+}
+
+.sGoalContainer{
+    max-width: 500px;
+}
+#savingGoalContainer,
+.sGoalContainer {
+    margin: 0 auto;
+    max-width: 500px;
+    border: 1px solid #e0dcdc;
+    margin-bottom: 10px;
+    padding: 5px;
+    min-height:100px;
+    background-color:#dff0d8;
+}
+.progress {
+    background-color:#ddd!important;
+}
+.sGoalContainerSubmit {
+    margin: 0 auto;
+    max-width: 500px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.sGoalContainer:hover {
+    background-color: white;
+}
+
+.sGoalProgress {
+    margin-bottom:-15px;
+    padding:0px!important;
+}
+
+#sGoalAddFund{
+    top:0px;
+    position:relative;
+}
+
+.sGoal-sidebar{
+    border-bottom:1px solid #e0dcdc;
+    padding-bottom:10px;
+}
+.sGoal-sidebar-successful{
+    border-bottom:1px solid #e0dcdc;
+    padding-bottom:10px;
+}
+
+    .sGoal-sidebar-successful h4{
+        color: green;
+        
+    }
+
+.sGoal-sidebar-unsuccessful{
+    border-bottom:1px solid #e0dcdc;
+    padding-bottom:10px;
+}
+
+.sGoal-sidebar-unsuccessful h4{
+        color: red;
+ }
+
+/* custom CSS for small screens */
+@media (max-width: 767px) {
+    body {
+        padding-top: 55px;
+    }
+    .mainBody {
+        height:95vh;
+    min-height: calc(100vh - 50px);
+    max-height:  calc(100vh - 50px);
+    overflow: auto;
+}
+    #banner-brand {
+        margin-left: 20px;
+    }
+}
+
+/* Notifications CSS */
+.alert-minimalist > [data-notify="icon"] {
+    height: 40px;
+    margin-right: 12px;
+}
+
+.alert-minimalist > [data-notify="title"] {
+    color: rgb(51, 51, 51);
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.alert-minimalist > [data-notify="message"] {
+    font-size: 80%;
+}
+
+/* Login Page CSS*/
+.userNameBlock {
+    min-height: 150px;
+    min-width: 150px !important;
+    max-width: 150px !important;
+    border: 1px solid black;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    background-color: #6ab244;
+    color: white;
+    text-align: center;
+    font-variant: small-caps;
+    font-size: x-large;
+}
+
+    .userNameBlock:hover {
+        cursor: pointer;
+        background-color: #60a23d;
+    }
+
+.userNameBlock-selected {
+    background-color: #006f51;
+    border: 2px solid #60a23d;
+}
+
+    .userNameBlock-selected:hover {
+        background-color: #006f51;
+    }
+
+#login-holder {
+    padding-top: 25px;
+}
+
+.col-centered{
+    float: none!important;
+    margin: 0 auto;
+    text-align:center;
+} 
+
+/* badge page */
+.myBadge{
+    min-height:220px!important;
+}
+
+
+/*Overview Savings Goals */
+#goals {
+    font-size:x-small;
+}
+
+
+/*User Preferences*/
+.currentPhoto {
+    border: 3px solid blue;
+}
+
+#ui-datepicker-div{
+    z-index:1000;
+}
