@@ -1,0 +1,84 @@
+﻿@model BudgetingApplication.ViewModels.TransactionsViewModel
+
+@{
+    ViewBag.Title = "SplitTransaction";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<style>
+    .button {
+        margin-top: 5px;
+        color: white;
+        background-color: darkgreen;
+        margin-left: 20px;
+        font-weight: bold;
+    }
+
+    .invalid {
+        color:red;
+    }
+</style>
+
+@section sidebar {
+    <h2>Transaction</h2>
+    <h4><b>Account:</b></h4>
+    <h6>@Model.Transaction.Account.AccountNo</h6>
+    <h4><b>Amount:</b></h4>
+    <h6>@string.Format("{0:n2}", Model.Transaction.TransactionAmount)</h6>
+    <h4><b>Category:</b></h4>
+    <h6>@Model.Transaction.Category.CategoryType</h6>
+    <h4><b>Date:</b></h4>
+    <h6>@Model.Transaction.TransactionDate.ToShortDateString()</h6>
+    <h4><b>Description:</b></h4>
+    <h6>@Model.Transaction.Description</h6>
+}
+
+<h2 style="text-align:center"><b>Split Transaction</b></h2>
+
+@if (!String.IsNullOrEmpty(Model.InvalidSplit))
+{
+    <h4 class="invalid">@Model.InvalidSplit</h4>
+}
+
+@if (!String.IsNullOrEmpty(Model.InvalidAmount))
+{
+    <h4 class="invalid">@Model.InvalidAmount</h4>
+}
+
+@using (Html.BeginForm("Split", "Transactions"))
+{
+    @Html.Hidden("Account", Model.Transaction.Account.AccountNo)
+    @Html.Hidden("Month", Model.Transaction.TransactionDate.Month)
+    @Html.Hidden("Day", Model.Transaction.TransactionDate.Day)
+    @Html.Hidden("Year", Model.Transaction.TransactionDate.Year)
+    @Html.Hidden("TransNo", Model.Transaction.TransactionNo)
+    <div class="form-group">
+        @Html.Label("Account")
+        @Html.TextBox(" ", null, new { @ReadOnly = "true", @class = "form-control", @placeholder = Model.Transaction.Account.AccountNo })
+    </div>
+    <div class="form-group">
+        @Html.Label("Amount To Split")
+        @Html.TextBox("Amount", null, new { @class = "form-control", @placeholder = "Amount" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Category")
+        @Html.DropDownList(
+                "Category",
+                new SelectList(Model.Categories, "CategoryType", "CategoryType"),
+                "--Select--",
+                new { @class = "form-control" }
+        )
+    </div>
+    <div class="form-group">
+        @Html.Label("Date")
+        @Html.TextBox(" ", null, new { @ReadOnly = "true", @class = "form-control", @placeholder = Model.Transaction.TransactionDate.ToShortDateString() })
+    </div>
+    <div class="form-group">
+        @Html.Label("Description")
+        @Html.TextBox("Description", null, new { @class = "form-control", @placeholder = "Description" })
+    </div>
+    <div align="center">
+        <button class="btn btn-default button" type="submit">Split Transaction</button>
+        <a class="btn btn-default button" href="/Transactions">Cancel</a>
+    </div>
+}

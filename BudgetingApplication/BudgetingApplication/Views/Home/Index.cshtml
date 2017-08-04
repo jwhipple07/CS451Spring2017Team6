@@ -1,0 +1,148 @@
+﻿@model BudgetingApplication.Models.indexModelView
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    ViewBag.PageName = "Index";
+}
+<div class="col-sm-8">
+    <div id="graphContainer" class="col-md-12">
+        <div id="showCharts" class="col-md-9">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span id="currentType">Donut Chart</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <span id="showDonut" data-show="doughnut" style="display:none;">Donut Chart</span>
+                    </li>
+                    <li>
+                        <span id="showBar-horizontal" data-show="horizontalBar">Horizontal Bar Chart</span>
+                    </li>
+                    <li>
+                        <span id="showBar" data-show="bar">Bar Chart</span>
+                    </li>
+                    <li>
+                        <span id="showPolar" data-show="polarArea">Polar Area Chart</span>
+                    </li>
+                    <li>
+                        <span id="showLine" data-show="line">Line Chart</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <center>
+                <div id="MyChart">
+                    <canvas id="chartArea"  />
+                </div>
+            </center>
+        </div>
+    </div>
+
+    <div class="col-md-12"><center><h2><a href="/budgetGoals">My Budget</a></h2></center></div>
+    <div class="col-md-12" style="max-height:400px; overflow:auto;">
+        @{
+            if (Model.budgetGoals.budgetView.Count() < 1)
+            {
+                <div class="col-md-12">
+                    You have not set any budget categories. <a href="~/BudgetGoals/InsertBudgetGoal"><span class="btn btn-success"> Add a new category</span></a>
+                </div>
+            }
+            foreach (var item in Model.budgetGoals.budgetView)
+            {
+                @Html.Partial("~/Views/BudgetGoals/_ListGoals.cshtml", item)
+            }
+        }
+    </div>
+
+</div>
+<div class="col-sm-4">
+    <div class="col-md-12 incomeBox">
+        <p>@DateTime.Now.ToString("MMMM")'s Income: <b>$@string.Format("{0:n2}", Model.totalIncome)</b></p>
+        <p>@DateTime.Now.ToString("MMMM")'s Spending: <b>$@string.Format("{0:n2}", Model.totalSpent)</b></p>
+    </div>
+    <br />
+    <div class="col-sm-12">
+        <h3><a href="/savingsgoals">Saving Goals</a></h3>
+    </div>
+    <div id="goals" class="col-sm-12" style="max-height:75%; overflow:auto; padding:0px;">
+        @{
+            if (Model.savingsGoals.savingsView.Count < 1)
+            {
+                <div class="col-md-12">
+                    You have not set any goals. <a href="~/SavingsGoal/InsertSavingsGoal"><span class="btn btn-success"> Add a new goal</span></a>
+                </div>
+            }
+            foreach (var item in Model.savingsGoals.savingsView)
+            {
+                <div class="col-sm-12">
+                    @Html.Partial("~/Views/SavingsGoal/_ListGoals.cshtml", item)
+                </div>
+            }
+        }
+    </div>
+</div>
+ <!-- this is only visible when the screen gets too small-->
+<div class="col-sm-12 visible-sm-block visible-xs-block" style="border-bottom:1px solid; margin-bottom:10px;">
+    <h4 class="badgeHeader"><a href="/badges">Badges Earned</a></h4>
+</div>
+@{
+    foreach (var item in Model.clientBadges)
+    {
+        var badge = Model.badges.Where(x => x.BadgeID == item.BadgeID).Single();
+        <div class="col-sm-2 col-xs-3 visible-sm-block visible-xs-block">
+            <img src="@Url.Content("~/images/" + badge.BadgeName)" class="badgeImage" data-toggle="tooltip" title="@badge.Description" data-placement="top" width="50" height="50" />
+        </div>
+    }
+}    <!--end of small screen visibility-->
+@section sidebar {
+   <div>
+       <div class="row">
+           <div id="warnings" class="col-sm-12">
+
+           </div>
+       </div>
+       <div class="col-sm-12" style="border-bottom:1px solid; margin-bottom:10px;">
+           <h4>My Accounts</h4>
+       </div>
+       <div class="col-sm-12">
+           <span>Total:</span>
+           <p class="pull-right"><b>$@string.Format("{0:n2}", Model.transactions.Sum(x => x.TransactionAmount))</b></p>
+       </div>
+           @{
+               string cssClass = "text-success";
+               foreach (var item in Model.transactions)
+               {
+                <div class="col-sm-12 col-xs-12">
+                    <span>@item.Description</span>
+                    @{
+                        if (item.TransactionAmount < 0)
+                        {
+                            cssClass = "text-danger";
+                        }
+                        else
+                        {
+                            cssClass = "text-success";
+                        }
+                    }
+                    <p class="@cssClass pull-right"><b>$@string.Format("{0:n2}", item.TransactionAmount)</b></p>
+                </div>
+                        }
+        }
+       <div class="col-sm-12" style="border-bottom:1px solid; margin-bottom:10px;">
+           <h4 class="badgeHeader"><a href="/badges">Badges Earned</a></h4>
+       </div>
+       <div class="row">
+           @{
+               foreach (var item in Model.clientBadges)
+               {
+                   var badge = Model.badges.Where(x => x.BadgeID == item.BadgeID).Single();
+                   <div class="col-xs-6 col-sm-4">
+                       <img src="@Url.Content("~/images/" + badge.BadgeName)" data-html="true" class="badgeImage" data-toggle="tooltip" title="<b>Earned:</b><em> @item.DateEarned.ToShortDateString() </em> <br>@badge.Description" data-placement="top" width="50" height="50" />
+                   </div>
+               }
+           }
+       </div>
+
+    </div>
+     }

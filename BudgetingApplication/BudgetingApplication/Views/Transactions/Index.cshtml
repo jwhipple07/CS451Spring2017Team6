@@ -1,0 +1,425 @@
+﻿@model BudgetingApplication.ViewModels.TransactionsViewModel
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.PageName = "Transaction";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<link href="~/scripts/CSS/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<style>
+    table {
+        text-align: center;
+    }
+
+    tr:nth-child(2n) {
+        background-color: lightgray;
+    }
+
+    th {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    th.trans-table-head {
+        color: white;
+        background-color: #4CAF50;
+    }
+
+    #search-container {
+        margin: 10px;
+    }
+
+    a.th-sort-link {
+        color: white;
+    }
+
+    a.th-sort-link:active {
+        color: purple;
+    }
+
+    .button {
+        margin-top: 5px;
+        color: white;
+        background-color: #0d6e51
+    }
+
+    .month-header {
+        border: none !important;
+        vertical-align: bottom;
+    }
+
+    #disabled-right-angle {
+        font-size: 50px;
+        color: lightgray;
+        vertical-align: bottom;
+        background-color: white;
+    }
+
+    .angle {
+        font-size: 50px;
+        color: black;
+        vertical-align: bottom;
+    }
+
+    #reset-div {
+        float: left;
+    }
+
+    #reset-button {
+        margin-top: 25px;
+        font-weight: bold;
+        float:left;
+    }
+
+    #no-transactions {
+        text-align: center;
+        clear: left;
+        padding-top: 20px;
+    }
+
+    .form-div {
+        float: left;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .search-container {
+        float: left;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #over-budget-legend-color {
+        background-color: rgb(255,80,80);
+        clear: left;
+        float: left;
+        height: 20px;
+        width: 40px;
+        margin-top: 7px;
+    }
+
+    #over-budget-legend-label {
+        float: left;
+        margin-left: 10px;
+    }
+
+    #no-budget-label {
+        clear: left;
+        float: left;
+        margin-left: 10px;
+    }
+
+    .sidebar-padding {
+        padding-bottom: 10px;
+    }
+
+    .section-container {
+        float: left;
+    }
+
+    .row-width {
+        width: auto;
+    }
+
+    .clickable-row:hover {
+        cursor:pointer;
+    }
+
+    @@media(max-width: 768px) {
+        .form-div {
+            float:left;
+            margin-left: 0px;
+            margin-right: 0px;
+            width: 50%;
+        }
+
+        .search-div {
+            margin-left: 0px;
+            margin-right: 0px;
+            width: 100%;
+        }
+
+        .section-container {
+            float: none;
+            width:100%;
+        }
+
+        .search-container {
+            width: 100%;
+            float: none;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        #reset-div {
+            width:50%;
+            margin-left:0px;
+            margin-right:0px;
+        }
+
+        #reset-button {
+            width:100%;
+            float:left;
+            margin-left:0px;
+            margin-right:0px;
+        }
+
+        .clickable-row:hover{
+            cursor:pointer;
+        }
+
+        #disabled-right-angle {
+            font-size: 50px;
+            color: lightgray;
+            vertical-align: bottom;
+            background-color: white;
+        }
+    }
+</style>
+
+@section sidebar{
+    <!-- SIDEBAR SECTION -->
+    <h3>Accounts</h3>
+    @{
+        var checking = Model.Accounts.Where(account => account.AccountType.Equals("Checking"));
+        var creditCard = Model.Accounts.Where(account => account.AccountType.Equals("CC"));
+        var savings = Model.Accounts.Where(account => account.AccountType.Equals("Savings"));
+    }
+    @if (checking.Any())
+    {
+        //displays checking account numbers if the user has any
+        <h4>Checking:</h4>
+        foreach (var item in checking)
+        {
+            <h6 class="sidebar-padding">@item.AccountNo</h6>
+        }
+    }
+    @if (creditCard.Any())
+    {
+        //displays credit card account numbers if the user has any
+        <h4>Credit Card:</h4>
+        foreach (var item in creditCard)
+        {
+            <h6 class="sidebar-padding">@item.AccountNo</h6>
+        }
+    }
+    @if (savings.Any())
+    {
+        //displays savings account numbers if the user has any
+        <h4>Savings:</h4>
+        foreach (var item in savings)
+        {
+            <h6 class="sidebar-padding">@item.AccountNo</h6>
+        }
+    }
+    @if (!String.IsNullOrEmpty(Model.Category) &&
+        (Model.BudgetGoals.Where(goal => goal.Category.CategoryType.Equals(Model.Category))).Any()
+    )
+    {
+        decimal transactionSum = 0;
+        foreach (var item in Model.Transactions)
+        {
+            transactionSum += Math.Abs(item.TransactionAmount);
+        }
+        <h3><b>@Model.Category Budget</b></h3>
+        <h4>Budgeted:</h4>
+        <h6 class="sidebar-padding"><b>$@string.Format("{0:n2}", Model.BudgetGoals.Where(goal => goal.Category.CategoryType.Equals(Model.Category)).Single().BudgetGoalAmount)</b></h6>
+        <h4>Spent:</h4>
+        <h6><b>$@string.Format("{0:n2}", transactionSum)</b></h6>
+    }
+}
+
+<!-- MONTH AND YEAR HEADER SECTION -->
+<table class="table table-responsive month-header">
+    <tr class="month-header">
+        <!-- PREVIOUS-MONTH BUTTON -->
+        <td style="text-align:right" class="month-header">
+            @Html.ActionLink(
+                " ",
+                "SwitchMonth",
+                new { month = (Model.Month - 1 == 0) ? 12 : Model.Month - 1, year = (Model.Month - 1 == 0) ? Model.Year - 1 : Model.Year },
+                new { @class = "fa fa-angle-left month-header angle", @style = "vertical-align:middle" }
+            )
+        </td>
+        <!-- MONTH AND YEAR TEXT -->
+        <td class="month-header">
+            <h2>@Model.DateTime.ToString("MMMM") @Model.Year</h2>
+        </td>
+        <!-- NEXT-MONTH BUTTON -->
+        <td style="text-align:left" class="month-header">
+            @if (Model.Month == System.DateTime.Now.Month && Model.Year == System.DateTime.Now.Year)
+            {
+                //disable next-month button if the page contains the current month and year
+                <button id="disabled-right-angle" class="fa fa-angle-right month-header" style="vertical-align:middle" disabled></button>
+            }
+            else
+            {
+                @Html.ActionLink(
+                    " ",
+                    "SwitchMonth",
+                    new { month = (Model.Month + 1 == 13) ? 1 : Model.Month + 1, year = (Model.Month + 1 == 13) ? Model.Year + 1 : Model.Year },
+                    new { @class = "fa fa-angle-right month-header angle" }
+                )
+            }
+        </td>
+    </tr>
+</table>
+
+<!-- FILTERING AND SEARCHING (FORM) SECTION -->
+@using (Html.BeginForm("Filter", "Transactions"))
+{
+    @Html.HiddenFor(month => Model.Month)
+    @Html.HiddenFor(year => Model.Year)
+    <!-- FORM CONTAINER -->
+    <section class="section-container">
+        <!-- ACCOUNT DROPDOWN LIST -->
+        <div class="form-group form-div">
+            @Html.Label("Select Account")
+            @Html.DropDownList(
+                   "Account",
+                   new SelectList(Model.Accounts, "AccountNo", "AccountNo"),
+                   "All",
+                   new { @class = "form-control" }
+            )
+        </div>
+        <!-- CATEGORY DROPDOWN LIST -->
+        <div class="form-group form-div">
+            @Html.Label("Select Category")
+            @Html.DropDownList(
+                   "Category",
+                   new SelectList(Model.Categories, "CategoryType", "CategoryType"),
+                   "All",
+                   new { @class = "form-control" }
+            )
+        </div>
+    </section>
+    <section class="search-container">
+        <!-- SEARCH BOX -->
+        <div class="form-group search-div">
+            @Html.Label("Search Description")
+            @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Description" })
+        </div>
+    </section>
+    <section class="section-container">
+        <!-- UPDATE BUTTON -->
+        <div class="form-group form-div">
+            @Html.Label(" ")
+            <button class="btn btn-default form-control button" type="submit"><b>Filter</b></button>
+        </div>
+        <!-- RESET BUTTON SECTION -->
+        <div class="form-group form-div">
+            @Html.ActionLink(
+                    "Reset",
+                    "Reset",
+                    new { month = Model.Month, year = Model.Year },
+                    new { @id = "reset-button", @class = "btn btn-default button" }
+            )
+        </div>
+    </section>
+}
+
+<!-- OVER-BUDGET LEGEND SECTION-->
+@if (!String.IsNullOrEmpty(Model.Category) &&
+            (Model.BudgetGoals.Where(goal => goal.Category.CategoryType.Equals(Model.Category))).Any()
+    )
+{
+    string legendPlaceHolder = "       "; //used for creating legend color item
+    <div>
+        <span id="over-budget-legend-color" class="label">@legendPlaceHolder</span>
+        <h5 id="over-budget-legend-label"><b>=  Over budget</b></h5>
+    </div>
+}
+
+<!-- TRANSACTIONS TABLE SECTION -->
+@if (!Model.Transactions.Any())
+{
+    <h3 id="no-transactions">No transactions to display.</h3>
+}
+else
+{
+    <section style="width:98%">
+        <table id="transactions-table" class="table table-bordered table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th class="trans-table-head">Date</th>
+                    <th class="trans-table-head">Description</th>
+                    <th class="trans-table-head">Amount</th>
+                    <th class="trans-table-head">Category</th>
+                </tr>
+            </thead>
+            @{
+                decimal transactionSum = 0; //keeps track of the sum of all transactions in selected category
+            }
+
+            @foreach (var item in Model.Transactions)
+            {
+                string url = "/Transactions/SplitTransaction/?transNo=" + item.TransactionNo.ToString().Trim('\n');
+                string dateAndTimeString = item.TransactionDate.ToString();
+                int firstSpaceIndex = dateAndTimeString.IndexOf(' ');
+                string dateString = dateAndTimeString.Remove(firstSpaceIndex, 12);
+                string backgroundColor = ""; //used for highlighting transactions-that-go-over-budget red
+                string textColor = ""; //used for changing color of text to white if the transaction goes over budget
+
+                transactionSum += Math.Abs(item.TransactionAmount);
+
+                if ((!String.IsNullOrEmpty(Model.Category)) &&
+                    (Model.BudgetGoals.Any()) &&
+                    (Model.BudgetGoals.Where(goal => goal.Category.CategoryType.Equals(Model.Category))).Any() &&
+                    (transactionSum > (Model.BudgetGoals.Where(goal => goal.Category.CategoryType.Equals(Model.Category)).Single().BudgetGoalAmount)
+                ))
+                {
+                    //set variables if transaction went over budget
+                    backgroundColor = "background-color:rgb(255,80,80)";
+                    textColor = "color:white";
+                }
+
+                
+                    <tr style="@backgroundColor">
+                        <td style="@textColor" class="clickable-row" data-href="@url">
+                            <b>@dateString</b>
+                        </td>
+                        <td style="@textColor" class="clickable-row" data-href="@url">
+                            <b>@Html.DisplayFor(modelItem => item.Description)</b>
+                        </td>
+                        @if (item.TransactionAmount > 0)
+                        {
+                            <td style="color:green" class="clickable-row" data-href="@url">
+                                <b>$@Html.DisplayFor(modelItem => item.TransactionAmount)</b>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="@textColor" class="clickable-row" data-href="@url">
+                                <b>$@Html.DisplayFor(modelItem => item.TransactionAmount)</b>
+                            </td>
+                        }
+                        <td align="center">
+                            @Html.DropDownList(
+                                   "Category",
+                                   new SelectList(Model.Categories, "CategoryType", "CategoryType"),
+                                   item.Category.CategoryType,
+                                   new { @class = "form-control row-width", @onchange = "SelectedIndexChanged()" }
+                            )
+                        </td>
+                    </tr>
+                }
+            
+        </table>
+    </section>
+}
+
+<script>
+    jQuery(document).ready(function($) {
+       $(".clickable-row").click(function() {
+           window.location = $(this).data("href");
+       });
+    });
+</script>
+
+<script type="text/javascript">
+    function SelectedIndexChanged() { 
+        document.demoForm.submit();  
+    }  
+</script>

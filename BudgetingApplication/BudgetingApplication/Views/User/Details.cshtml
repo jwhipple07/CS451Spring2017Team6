@@ -1,0 +1,104 @@
+﻿@model BudgetingApplication.Models.Client
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_Layout.cshtml";
+}
+<div class="col-md-6">
+    <h2>Details</h2>
+    <h4>View Your Personal Details</h4>
+</div>
+<div class="col-md-6">
+    @if (Model.PhotoURL == null || Model.PhotoURL == "")
+    {
+        <img src="~/Images/avatar-default-icon.png" width="150" height="150" />
+    }
+    else
+    {
+        <img src="~/Images/Users/@Model.ClientID/@Model.PhotoURL" width="150" height="150" />
+    }
+</div>
+<div class="col-md-12">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </dt>
+
+        <dd>
+            @Model.Birthdate.ToShortDateString()
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+        <dt>
+           Notifications
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notify)
+        </dd>
+        
+
+    </dl>
+</div>
+<div class="col-md-12">
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ClientID }) |
+        @Html.ActionLink("Back to Overview", "Index", "home")
+    </p>
+</div>

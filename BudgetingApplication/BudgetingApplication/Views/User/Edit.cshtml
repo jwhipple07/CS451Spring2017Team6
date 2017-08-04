@@ -1,0 +1,131 @@
+﻿@model BudgetingApplication.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<div id="mainForm" class="col-md-6">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.client.ClientID)
+            @Html.HiddenFor(model => model.client.PhotoURL, htmlAttributes: new { @id = "hidden-photo-id" })
+
+            <div class="form-group">
+                <h3>
+                    @Html.DisplayFor(model => model.client.FirstName)
+                    @Html.DisplayFor(model => model.client.LastName)
+                </h3>
+            </div>
+            <div class="form-group">
+                        Birthdate:
+                        @Model.client.Birthdate.ToShortDateString()
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.Username, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.client.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.client.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.Email, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.client.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.client.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.Phone, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.client.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.client.Phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.Address, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.client.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.client.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.City, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.client.City, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.client.City, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.client.State, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.client.State, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.client.State, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3" for="client_Notify">Notications</label>
+                <div class="col-md-6">
+                    <input type="checkbox" id="Notification" value="Y" @(Model.client.Notify == "Y" ? "checked" : "") />
+                    @Html.HiddenFor(model => model.client.Notify, new { htmlAttributes = new { @id = "hidden-notify", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.client.Notify, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-6">
+                    <input id="edit" type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="col-md-6">
+    <div class="col-md-12">Select your profile picture</div>
+    @if(Model.allImages.Count() < 1)
+    {
+        <div class="col-md-12">
+            Looks like you have not uploaded any images, upload one below!
+        </div>
+    }
+    @foreach (string fileName in Model.allImages)
+    {
+        string classname = "";
+        if (fileName == Model.client.PhotoURL)
+        {
+            classname = "currentPhoto";
+        }
+        <div class="col-sm-3 uploadedImages"><img class="@classname" src="~/Images/Users/@Model.client.ClientID/@fileName" data-name="@fileName" width="75" height="75" /></div>
+    }
+    <div class="col-md-12" style="margin-top:10px; padding:5px; border:1px solid #cacaca">
+        <form action="/User/UploadPhoto" enctype="multipart/form-data" method="post">
+            <label for="photo">Upload a Photo:</label>
+            <input class="btn btn-default" id="photo" type="file" name="photo" />
+            <input class="btn btn-default pull-right" type="submit" value="Upload" />
+        </form>
+    </div>
+</div>
+<div class="col-md-12">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.uploadedImages img').on('click', function () {
+            $('.uploadedImages img').removeClass('currentPhoto');
+            $(this).addClass('currentPhoto');
+            $('#hidden-photo-id').val($(this).attr('data-name'));
+        });
+        $('#mainForm form').on('submit', function (e) {
+            e.preventDefault();
+            var checked = $('#Notification').is(':checked') ? "Y" : "N";
+            $('#client_Notify').val(checked);
+
+            this.submit();
+        });
+    });
+
+</script>

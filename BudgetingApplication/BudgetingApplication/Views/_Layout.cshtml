@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Commerce Budgeting Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/scripts/CSS/BudgetTool.css" rel="stylesheet" />
+    <link href="~/scripts/CSS/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/scripts/CSS/animate.css" rel="stylesheet" />
+    <link href="~/scripts/CSS/jquery-ui.css" rel="stylesheet" />
+    @*<link href="~/scripts/CSS/commerce-nav-bar-min.css" rel="stylesheet" />*@
+    <script src="~/scripts/JS/jquery.min.js"></script>
+</head>
+<body>
+    <div class="mainHolder">
+        <div id="showSidebar" class="visible-sm-block visible-xs-block">
+            <button type="button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="hoveringSidebar" class="hidden-md hidden-lg ">
+            <div id="closeSideBar">Close [X]</div>
+        </div>
+        <nav class="navbar navbar-fixed-top">
+            <div class="navBanner">
+                @*<div class="navbar-header">
+                        <a href="#">
+                            <img id="banner-brand" src="~/images/CommerceFDIC_RevTM.svg" alt="" />
+                        </a>
+                    </div>*@
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="/Home">
+                            <img id="banner-brand" src="~/images/CommerceFDIC_RevTM.svg" alt="" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="navLinks">
+                <div class="container">
+
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="/Home">
+                                    Overview
+                                    <span class="@((ViewBag.PageName == "Index") ? "active-indicator" : "")"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/BudgetGoals">
+                                    Budget
+                                    <span class="@((ViewBag.PageName == "Budget") ? "active-indicator" : "")"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SavingsGoal">
+                                    Goals
+                                    <span class="@((ViewBag.PageName == "Savings") ? "active-indicator" : "")"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Transactions">
+                                    Transactions
+                                    <span class="@((ViewBag.PageName == "Transaction") ? "active-indicator" : "")"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Trends">
+                                    Trends
+                                    <span class="@((ViewBag.PageName == "Trends") ? "active-indicator" : "")"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Badges">
+                                    Badges
+                                    <span class="@((ViewBag.PageName == "Badges") ? "active-indicator" : "")"></span>
+                                </a>
+                            </li>
+                        </ul>
+                        @if (Session["UserName"] != null)
+                        {
+                            <div class="navbar-header navbar-right">
+                                <p class="navbar-text">
+                                    <a href="/user">
+                                        <em>@Session["UserName"] </em>
+                                    </a>
+
+                                    <a href="/Home/logout">Logout</a>
+                                </p>
+                            </div>
+                        }
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container">
+            <div class="row">
+                <div id="sidebar" class="visible-md-block visible-lg-block col-sm-3">
+                    @if (Session["UserName"] != null)
+                    {
+                        <div id="UserArea" class="col-sm-12">
+                            <table>
+                                <tr>
+                                    <td rowspan="2">
+                                        <img src="@Session["img"]" width="50" height="50" style="margin:15px" />
+                                    </td>
+                                    <td>
+                                        <h4 style="margin-top:10px;">@Session["fullName"]</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <em>@DateTime.Now.ToLongDateString()</em>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="min-height:25px;">
+                                <div id="userEdit" style="float:right; display:none;">
+                                    <a href="/user"> Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-md-12">
+                        @RenderSection("sidebar", false)
+                    </div>
+                    <div style="min-height:10%">
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
+        </div><!-- /.container -->
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/scripts/JS/jquery-ui.min.js"></script>
+    <script src="~/scripts/JS/Chart.bundle.min.js"></script>
+    <script src="~/scripts/JS/bootstrap-notify.js"></script>
+    <script src="~/scripts/JS/budgetingApplication.js"></script>
+    <script src="~/scripts/JS/bootstrap.min.js"></script>
+</body>
+</html>
+

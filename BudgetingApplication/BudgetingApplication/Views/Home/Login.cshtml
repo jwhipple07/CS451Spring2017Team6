@@ -1,0 +1,57 @@
+﻿@model BudgetingApplication.ViewModels.LoginModelView
+
+@{
+    Layout = "~/Views/_Layout.cshtml";
+    ViewBag.PageName = "Login";
+}
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    <div class="col-sm-12" style="padding-bottom:25px;">
+        <h3>Select A User</h3>
+    </div>
+    foreach (var item in Model.allClients)
+    {
+        <div class="col-xs-6 col-sm-3"><div class="userNameBlock" data-user-name="@item.Username">@item.Username</div></div>
+    }
+    <div class="clearfix">
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+
+        <div class="hidden">
+            @Html.LabelFor(a => a.client.Username)
+            @Html.TextBoxFor(a => a.client.Username)
+            @Html.ValidationMessageFor(a => a.client.Username)
+        </div>
+
+        @*
+            @Html.LabelFor(a => a.Password)
+            @Html.PasswordFor(a => a.Password)
+            @Html.ValidationMessageFor(a => a.Password)
+        *@
+    </div>
+    <div class="col-sm-10" id="login-holder">
+        <input type="submit" class="btn btn-success" value="Login" disabled/>
+    </div>
+          
+               
+ 
+}  
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.userNameBlock').on('click', function () {
+            $(this).parent().siblings().find('.userNameBlock').removeClass('userNameBlock-selected');
+            $(this).addClass('userNameBlock-selected');
+            var username = $(this).text();
+            $('#client_Username').val(username);
+            $('#login-holder input').removeAttr('disabled');
+        })
+    })
+</script>

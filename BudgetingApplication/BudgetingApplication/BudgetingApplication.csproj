@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8B43B67A-8DBB-451C-B6B2-754BF230FEE2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BudgetingApplication</RootNamespace>
+    <AssemblyName>BudgetingApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Site.css" />
+    <Content Include="Global.asax" />
+    <Content Include="images\10_badges.png" />
+    <Content Include="images\20_badges.png" />
+    <Content Include="images\3_ut_goals.png" />
+    <Content Include="images\50_badges.png" />
+    <Content Include="images\5_badges.png" />
+    <Content Include="images\5_ut_goals.png" />
+    <Content Include="images\add_1_b_cat.png" />
+    <Content Include="images\add_3_b_cat.png" />
+    <Content Include="images\add_5_b_cat.png" />
+    <Content Include="images\all_badges.png" />
+    <Content Include="images\all_holidays.png" />
+    <Content Include="images\avatar-default-icon.png" />
+    <Content Include="images\bb_1_month.png" />
+    <Content Include="images\bb_3_months.png" />
+    <Content Include="images\bb_6_months.png" />
+    <Content Include="images\bb_year.png" />
+    <Content Include="images\CommerceFDIC_RevTM.svg" />
+    <Content Include="images\completed_all_goals.png" />
+    <Content Include="images\created_3_goals.png" />
+    <Content Include="images\created_5_goals.png" />
+    <Content Include="images\created_first_goal.png" />
+    <Content Include="images\fb_button.png" />
+    <Content Include="images\first_ut_goal.png" />
+    <Content Include="images\halfway_on_goals.png" />
+    <Content Include="images\in_black.png" />
+    <Content Include="images\kb_1_month.png" />
+    <Content Include="images\kb_6_months.png" />
+    <Content Include="images\kb_year.png" />
+    <Content Include="images\met_goals_1_month.png" />
+    <Content Include="images\met_goals_3_month.png" />
+    <Content Include="images\met_goals_6_months.png" />
+    <Content Include="images\met_goals_year.png" />
+    <Content Include="images\recat_transactions.png" />
+    <Content Include="images\shared_1_badge.png" />
+    <Content Include="images\shared_5_badges.png" />
+    <Content Include="images\started_services.png" />
+    <Content Include="images\tweetbutton.png" />
+    <Content Include="images\ub_april_fools.png" />
+    <Content Include="images\ub_easter.png" />
+    <Content Include="images\ub_fall_equinox.png" />
+    <Content Include="images\ub_halloween.png" />
+    <Content Include="images\ub_independence.png" />
+    <Content Include="images\ub_memorial.png" />
+    <Content Include="images\ub_new_years.png" />
+    <Content Include="images\ub_patricks_day.png" />
+    <Content Include="images\ub_spring_equinox.png" />
+    <Content Include="images\ub_summer_solstice.png" />
+    <Content Include="images\ub_thanksgiving.png" />
+    <Content Include="images\ub_washington.png" />
+    <Content Include="images\ub_xmas.png" />
+    <Content Include="images\used_all_features.png" />
+    <Content Include="images\used_badge_page.png" />
+    <Content Include="images\used_trends_page.png" />
+    <Content Include="images\Users\1\images.png" />
+    <Content Include="images\Users\2\pretzels.jpg" />
+    <Content Include="images\Users\2\saurons tower.png" />
+    <Content Include="images\viewed_6_months.png" />
+    <Content Include="Models\DbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+      <LastGenOutput>DbModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+      <LastGenOutput>DbModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="scripts\CSS\animate.css" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="scripts\CSS\jquery-ui.css" />
+    <Content Include="scripts\JS\bootstrap-notify.js" />
+    <Content Include="scripts\JS\Chart.bundle.min.js" />
+    <Content Include="scripts\CSS\bootstrap-theme.min.css" />
+    <Content Include="scripts\CSS\bootstrap.min.css" />
+    <Content Include="scripts\CSS\BudgetTool.css" />
+    <EntityDeploy Include="Models\DbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DbModel.edmx.diagram">
+      <DependentUpon>DbModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="scripts\JS\bootstrap.min.js" />
+    <Content Include="scripts\JS\budgetingApplication.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\css\api.css" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\css\font-awesome.min.css" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\css\jquery-ui.min.css" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\css\jquery.sidr.bare.css" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\highcharts.html" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-114x114.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-120x120.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-144x144.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-152x152.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-180x180.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-57x57.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-60x60.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-72x72.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\apple-touch-icon-76x76.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\favicon-160x160.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\favicon-16x16.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\favicon-192x192.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\favicon-32x32.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\favicon-96x96.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\Highcharts.svg" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\images\sprite.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\js\api.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\js\jquery-1.11.3.min.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\js\jquery-ui.min.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\js\jquery.sidr.min.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\css\highcharts.css" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\highcharts-3d.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\highcharts-3d.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\highcharts-more.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\highcharts-more.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\highcharts.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\highcharts.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\highcharts-3d.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\highcharts-3d.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\highcharts-more.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\highcharts-more.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\highcharts.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\highcharts.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\accessibility.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\accessibility.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\annotations.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\annotations.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\boost-canvas.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\boost-canvas.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\boost.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\boost.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\broken-axis.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\broken-axis.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\data.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\data.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\drilldown.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\drilldown.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\exporting.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\exporting.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\funnel.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\funnel.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\gantt.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\gantt.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\grid-axis.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\grid-axis.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\heatmap.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\heatmap.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\no-data-to-display.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\no-data-to-display.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\offline-exporting.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\offline-exporting.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\overlapping-datalabels.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\overlapping-datalabels.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\series-label.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\series-label.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\solid-gauge.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\solid-gauge.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\static-scale.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\static-scale.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\stock.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\stock.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\treemap.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\treemap.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\xrange-series.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\modules\xrange-series.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\themes\dark-blue.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\themes\dark-green.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\themes\dark-unica.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\themes\gray.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\themes\grid-light.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\themes\grid.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\themes\sand-signika.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\js\themes\skies.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\lib\canvg.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\lib\canvg.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\lib\jspdf.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\lib\jspdf.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\lib\rgbcolor.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\lib\rgbcolor.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\lib\svg2pdf.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\lib\svg2pdf.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\accessibility.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\accessibility.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\annotations.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\annotations.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\boost-canvas.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\boost-canvas.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\boost.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\boost.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\broken-axis.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\broken-axis.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\data.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\data.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\drilldown.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\drilldown.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\exporting.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\exporting.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\funnel.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\funnel.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\gantt.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\gantt.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\grid-axis.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\grid-axis.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\heatmap.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\heatmap.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\no-data-to-display.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\no-data-to-display.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\offline-exporting.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\offline-exporting.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\overlapping-datalabels.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\overlapping-datalabels.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\series-label.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\series-label.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\solid-gauge.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\solid-gauge.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\static-scale.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\static-scale.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\stock.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\stock.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\treemap.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\treemap.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\xrange-series.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\modules\xrange-series.src.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\readme.txt" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\themes\dark-blue.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\themes\dark-green.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\themes\dark-unica.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\themes\gray.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\themes\grid-light.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\themes\grid.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\themes\sand-signika.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\code\themes\skies.js" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\3d-column-interactive\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\3d-column-null-values\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\3d-column-stacking-grouping\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\3d-pie-donut\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\3d-pie\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\3d-scatter-draggable\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\area-basic\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\area-inverted\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\area-missing\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\area-negative\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\area-stacked-percent\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\area-stacked\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\arearange-line\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\arearange\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\areaspline\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\bar-basic\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\bar-negative-stack\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\bar-stacked\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\box-plot\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\bubble-3d\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\bubble\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\chart-update\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-basic\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-drilldown\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-negative\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-parsed\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-placement\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-rotated-labels\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-stacked-and-grouped\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-stacked-percent\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\column-stacked\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\columnrange\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\combo-dual-axes\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\combo-histogram\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\combo-meteogram\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\combo-multi-axes\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\combo-regression\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\combo-timeline\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\combo\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\dynamic-click-to-add\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\dynamic-master-detail\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\dynamic-update\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\error-bar\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\funnel\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\gauge-activity\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\gauge-clock\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\gauge-dual\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\gauge-solid\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\gauge-speedometer\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\gauge-vu-meter\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\heatmap-canvas\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\heatmap\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\line-ajax\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\line-basic\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\line-labels\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\line-log-axis\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\line-time-series\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\pie-basic\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\pie-donut\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\pie-drilldown\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\pie-gradient\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\pie-legend\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\pie-monochrome\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\pie-semi-circle\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\polar-spider\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\polar-wind-rose\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\polar\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\polygon\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\pyramid\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\renderer\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\responsive\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\scatter\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\sparkline\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\spline-inverted\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\spline-irregular-time\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\spline-plot-bands\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\spline-symbols\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\synchronized-charts\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\treemap-coloraxis\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\treemap-large-dataset\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\treemap-with-levels\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\examples\waterfall\index.htm" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\gfx\vml-radial-gradient.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\graphics\earth.svg" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\graphics\meteogram-symbols-30px.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\graphics\search.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\graphics\skies.jpg" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\graphics\snow.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\graphics\sun.png" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\index.htm" />
+    <Content Include="scripts\JS\jquery-ui.min.js" />
+    <Content Include="scripts\JS\jquery.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BadgesController.cs" />
+    <Compile Include="Controllers\BudgetGoalsController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SavingsGoalController.cs" />
+    <Compile Include="Controllers\TransactionsController.cs" />
+    <Compile Include="Controllers\TrendsController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Badge.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BudgetGoal.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DecimalModelBinder.cs" />
+    <Compile Include="ViewModels\BadgesModelView.cs" />
+    <Compile Include="ViewModels\BudgetGoalModelView.cs" />
+    <Compile Include="Models\BudgetGoals_VW.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categories_VW.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Client.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientBadge.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\indexModelView.cs" />
+    <Compile Include="Models\PointsRecord.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SavingsGoal.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Transaction.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\LoginModelView.cs" />
+    <Compile Include="ViewModels\SavingsGoalsViewModel.cs" />
+    <Compile Include="ViewModels\TransactionsViewModel.cs" />
+    <Compile Include="ViewModels\TrendsViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Data\testData.json" />
+    <Content Include="Data\testDataForDonut.json" />
+    <Content Include="Data\testDataForCalendar.json" />
+    <Content Include="Views\_Layout.cshtml" />
+    <Content Include="Views\Home\TechnicalPrototype.cshtml" />
+    <Content Include="Views\Transactions\Index.cshtml" />
+    <Content Include="Views\BudgetGoals\index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\BudgetGoals\InsertBudgetGoal.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\BudgetGoals\_ListGoals.cshtml" />
+    <Content Include="Views\SavingsGoal\Index.cshtml" />
+    <Content Include="Views\Badges\Index.cshtml" />
+    <Content Include="Views\Trends\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\PageNotFound.cshtml" />
+    <Content Include="Views\Error\GeneralError.cshtml" />
+    <Content Include="Views\SavingsGoal\_ListGoals.cshtml" />
+    <Content Include="Views\SavingsGoal\InsertSavingsGoal.cshtml" />
+    <Content Include="Views\SavingsGoal\AddFunds.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Transactions\SplitTransaction.cshtml" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\fonts\fontawesome-webfont.woff" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\fonts\fontawesome-webfont.woff2" />
+    <Content Include="scripts\JS\Highcharts-5.0.10\api\js\highcharts.json" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\core.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\list.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\path.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="scripts\CSS\font-awesome-4.7.0\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2754</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2755/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

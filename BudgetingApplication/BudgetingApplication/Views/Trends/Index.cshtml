@@ -1,0 +1,341 @@
+﻿@model BudgetingApplication.ViewModels.TrendsViewModel
+@{
+    ViewBag.Title = "Index";
+    ViewBag.PageName = "Trends";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<script src="~/scripts/JS/Chart.bundle.min.js"></script>
+<script src="~/scripts/JS/HighCharts-5.0.10/code/highcharts.js"></script>
+<script src="~/scripts/JS/HighCharts-5.0.10/code/modules/exporting.js"></script>
+
+<style>
+    .form-container {
+        text-align: center;
+    }
+
+    .block-start {
+        float: left;
+        margin-left:40px;
+    }
+
+    .block-category {
+        float: left;
+        margin-left:40px;
+    }
+
+    .form-right {
+        float: left;
+    }
+
+    .button {
+        margin-top: 5px;
+        color: white;
+        background-color: #0d6e51;
+    }
+
+    #reset-button {
+        margin-top: 25px;
+        margin-left:40px;
+        font-weight: bold;
+        float:left;
+    }
+
+    .sidebar-padding {
+        padding-bottom: 10px;
+    }
+
+    .center-align {
+        text-align: center;
+    }
+
+    #spending-by {
+        float:none;
+    }
+
+    .spending-by {
+        padding-top: 20px;
+    }
+
+    .block-end{
+        float:left;
+    }
+
+    .section-container{
+        float:left;
+    }
+
+    .graph-container {
+        float:none;
+        width:100%;
+    }
+
+    @@media(max-width: 768px) {
+        .section-container {
+            width:100%;
+            float:none;
+        }
+
+        .block-start {
+            float:left;
+            width:50%;
+            margin-left:0;
+            margin-right:0;
+        }
+
+        .block-end {
+            float:left;
+            width:50%;
+            margin-left:0;
+            margin-right:0;
+        }
+
+        .block-category {
+            width:100%;
+            margin-left:0;
+            margin-right:0;
+        }
+
+        #reset-button {
+            width:100%;
+            float:left;
+            margin-left:0px;
+            margin-right:0px;
+        }
+    }
+</style>
+
+@section sidebar{
+    <h3>Statistics</h3>
+    <h4>Total Spending:</h4>
+    <h6 class="sidebar-padding">$@string.Format("{0:n2}", Model.TotalSpent)</h6>
+    <h4>Most Spent:</h4>
+    <h6 class="sidebar-padding">$@string.Format("{0:n2}", Model.MostSpent) in @Model.MostSpentCategory</h6>
+    <h4>Least Spent:</h4>
+    <h6 class="sidebar-padding">$@string.Format("{0:n2}", Model.LeastSpent) in @Model.LeastSpentCategory</h6>
+    <h4>Average Spending:</h4>
+    <h6>$@string.Format("{0:n2}", Model.AverageSpending)</h6>
+
+}
+
+<h2 class="center-align">Trends</h2>
+
+@if (!Model.ValidDates)
+{
+    <h4 class="center-align" style="color:red">Start date was after end date</h4>
+}
+@if (Model.TooManyMonths)
+{
+    <h4 class="center-align" style="color:red">Please limit your selection in a category to a year. Showing last year from the selected end date</h4>
+}
+
+@using (Html.BeginForm("Filter", "Trends"))
+{
+    <!-- CATEGORY DROPDOWN LIST -->
+    <div class="form-group block-category">
+        @Html.Label("Select Category")
+        @Html.DropDownList(
+                "Category",
+                new SelectList(Model.Categories, "CategoryType", "CategoryType"),
+                "All",
+                new { @class = "form-control" }
+        )
+    </div>
+    <!-- START DATE MONTH-->
+    <section class="section-container">
+        <div class="form-group block-start">
+            @Html.Label("Start Month")
+            @Html.DropDownList(
+                    "StartMonth",
+                    new SelectList(Model.Months, Model.Months.Single(x => x.Equals(Model.StartDate.ToString("MMMM")))),
+                    new { @class = "form-control" }
+            )
+        </div>
+        <div class="form-group block-end">
+            @Html.Label("Start Year")
+            @Html.DropDownList(
+                    "StartYear",
+                    new SelectList(Model.Years, Model.Years.Single(x => x.Equals(Model.StartDate.Year.ToString()))),
+                    new { @class = "form-control" }
+            )
+        </div>
+    </section>
+    <section class="section-container">
+        <!-- END DATE MONTH -->
+        <div class="form-group block-start">
+            @Html.Label("End Month")
+            @Html.DropDownList(
+                     "EndMonth",
+                     new SelectList(Model.Months, Model.Months.Single(x => x.Equals(Model.EndDate.ToString("MMMM")))),
+                     new { @class = "form-control" }
+            )
+        </div>
+        <!-- END DATE YEAR -->
+        <div class="form-group block-end">
+            @Html.Label("End Year")
+            @Html.DropDownList(
+                     "EndYear",
+                     new SelectList(Model.Years, Model.Years.Single(x => x.Equals(Model.EndDate.Year.ToString()))),
+                     new { @class = "form-control" }
+            )
+        </div>
+    </section>
+    <section class="section-container">
+        <!-- FILTER BUTTON -->
+        <div class="form-group block-start">
+            @Html.Label(" ")
+            <button class="btn btn-default form-control button" type="submit"><b>Filter</b></button>
+        </div>
+        <!-- RESET BUTTON -->
+        <div class="form-group block-end">
+            @Html.ActionLink(
+                    "Reset",
+                    "Index",
+                    null,
+                    new { @id="reset-button", @class = "btn btn-default button" }
+            )
+        </div>
+    </section>
+    
+}
+
+<section id="spending-by">
+    <!-- SPENDING BY... HEADER -->
+    @if (!String.IsNullOrEmpty(Model.Category))
+    {
+        <h4 style="clear:left" class="center-align spending-by">Spending In @Model.Category</h4>
+    }
+    else
+    {
+        <h4 style="clear:left" class="center-align spending-by">Spending From</h4>
+    }
+    <h4 style="line-height:7px" class="center-align">@Model.StartDate.ToString("MMMM") @Model.StartDate.Year to @Model.EndDate.ToString("MMMM") @Model.EndDate.Year</h4>
+</section>          
+
+    <canvas id="donut-chart" height="160"></canvas>
+          
+<section>
+    <h4 class="center-align" style="clear:left;margin-top:50px">Budget Breakdown</h4>
+</section>
+<section class="graph-container">
+    <div id="budget-breakdown-chart" style="max-height:400px; margin:auto"></div>
+</section>       
+            
+<script>
+    var ctx = document.getElementById("donut-chart");
+    var data = {
+        labels: @Html.Raw(Json.Encode(Model.ChartLabels)),
+        datasets: [
+            {
+                data: @Html.Raw(Json.Encode(Model.TransactionAmounts.Values)),
+                backgroundColor: @Html.Raw(Json.Encode(Model.Colors)),
+                hoverBackgroundColor: [
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080",
+                    "#808080"
+                ]
+            }]
+    };
+    var options = {
+        responsive: true,
+        maintainAspectRatio: true,
+        animation:{
+            animateScale: true,
+            animateRotate: true
+        },
+        legend:{
+            display: true,
+            responsive: true,
+            position: 'bottom',
+            fullWidth: false,
+            labels:{
+                responsive: true,
+                marginTop: 10,
+                boxWidth: 10,
+                fontSize: 10,
+                padding: 5,
+                fullWidth: true
+            }
+        }
+    };
+
+    window.myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: options
+    });
+</script>
+
+<script>
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return Highcharts.Color(color)
+            .setOpacity(0.7)
+            .get('rgba');
+    });
+
+    Highcharts.chart('budget-breakdown-chart', {
+        chart: {
+            type: 'column',
+            marginTop: 50
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: @Html.Raw(Json.Encode(Model.ChartLabels)),
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Totals ($)'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            backgroundColor: '#FFFFFF',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 0,
+            floating: true,
+            shadow: true
+        },
+        tooltip: {
+            shared: true,
+            valuePrefix: '$'
+        },
+        plotOptions: {
+            column: {
+                grouping: false,
+                shadow: false
+            }
+        },
+        series: [{
+            name: 'Spent',
+            data: @Html.Raw(Json.Encode(Model.TransactionAmounts.Values)),
+            pointPadding: 0
+        }, {
+            name: 'Budgeted',
+            data: @Html.Raw(Json.Encode(Model.BudgetTotals.Values)),
+            pointPadding: 0.3,
+            color: {
+                linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+                stops: [
+                    [0, '#000000'],
+                    [1, '#3366AA']
+                ]
+            }
+        }]
+    });
+</script>

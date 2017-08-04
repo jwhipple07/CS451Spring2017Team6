@@ -1,0 +1,145 @@
+﻿@model BudgetingApplication.Models.BudgetGoalModelView
+@{
+    ViewBag.Title = "index";
+    ViewBag.PageName = "Budget";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+
+        $(".bGoalContainer").hover(
+              function () {
+                  $(this).find('.bGoal-edit').show();
+              }, function () {
+                  $(this).find('.bGoal-edit').hide();
+              }
+            );
+
+        $(".bGoalContainer").hover(
+             function () {
+                 $(this).find('.bGoal-edit').show();
+             }, function () {
+                 $(this).find('.bGoal-edit').hide();
+             }
+           );
+
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true
+        });
+        $(document).on('click', '.bGoalContainer .delete', function (e) {
+            e.preventDefault();
+            var targetUrl = $(this).attr("href");
+
+            $("#dialog").dialog({
+                buttons: {
+                    "Confirm": function () {
+                        window.location.href = targetUrl;
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#dialog").dialog("open");
+        });
+    })
+        
+</script>
+<div id="dialog" title="Confirmation Required">
+    Are you sure you want to transfer this amount?
+</div>
+<center><h2>My Budget</h2></center>
+<div id="budgetGoalContainter">
+
+    @{
+        int percentage = Model.getPercentage();
+        double remaining = Model.totalBudgeted - Model.totalSpent;
+        string progressType = "progress-bar-success";
+        if (percentage > 70 && percentage < 90)
+        {
+            progressType = "progress-bar-warning";
+        }
+        else if (percentage >= 90)
+        {
+            progressType = "progress-bar-danger";
+        }
+        <div class="bGoalContainer">
+            <div class="bGoalUpper">
+                <div class="bGoalLabel">
+                    <span class="bGoal-parent-label"></span>
+                    <span class="bGoal-child-label">Total Budget</span>
+                </div>
+            </div>
+            <div class="bGoalProgress">
+                <div class="progress">
+                    <div class="progress-bar @progressType" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: @percentage%">
+                        
+                    </div>
+                </div>
+                <div class="bGoalLower">
+                    <div style="float:left;">Total Spent: <span class="bGoal-amount">$@Model.totalSpent</span> </div>
+                    <div class="visible-md-block visible-lg-block " style="float:right;">Remaining: <span class="bGoal-amount">$@remaining</span></div>
+                    <center><div>Total Budgeted: <span class="bGoal-amount"> $@Model.totalBudgeted</span></div></center>
+                </div>
+            </div>
+        </div>
+        <hr />
+    }
+    @foreach (var item in ViewData.Model.budgetView)
+    {
+        @Html.Partial("~/Views/BudgetGoals/_ListGoals.cshtml", item)
+
+    }
+    <div class="bGoalContainerSubmit">
+        <a type="button" class="btn btn-success pull-right"
+           href="~/BudgetGoals/InsertBudgetGoal">+ Add New Category</a>
+
+    </div>
+</div>
+
+
+@section sidebar{
+    
+    @{
+        var item = Model.budgetView.Where(x => x.GoalCategory == 1).FirstOrDefault();
+        if (item == null)
+        {
+            <div class="bGoalIncome-sidebar">
+                <h3>Income</h3>
+                <div class="bGoalIncome-sidebar-amount">
+                    <span>$@string.Format("{0:n2}", 0)</span> of
+                    <span>$@string.Format("{0:n2}", 0)</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="bGoalIncome-sidebar">
+                <h3>Income</h3>
+                <div class="bGoalIncome-sidebar-amount">
+                    <span>$@string.Format("{0:n2}", item.TransactionAmount)</span> of
+                    <span>$@string.Format("{0:n2}", item.BudgetGoalAmount)</span>
+                </div>
+            </div>
+        }
+        <div id="updateIncome" class="col-sm-12">
+            <div class="pull-right">
+                @Html.ActionLink("Edit", "InsertBudgetGoal", new { id = item != null ? item.BudgetGoalID : null })
+            </div>
+        </div>
+    }
+    @*@foreach (var item in Model.budgetView.Where(x => x.GoalCategory == 1))
+    {
+        <div class="bGoalIncome-sidebar">
+            <h3>Income</h3>
+            <div class="bGoalIncome-sidebar-amount">
+                <span>$@string.Format("{0:n2}", item.TransactionAmount)</span> of
+                <span>$@string.Format("{0:n2}", item.BudgetGoalAmount)</span>
+            </div>
+        </div>
+    }*@
+}

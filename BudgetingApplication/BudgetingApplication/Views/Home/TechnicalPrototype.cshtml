@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "TechnicalPrototype";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<center><h2>Technical Prototype</h2></center>
+
+<div class="col-md-3">
+    <div id='calendar'></div>
+</div>
+<div class="col-md-5">
+    <canvas id="chart-area" />
+</div>
+<div class="col-md-4">
+    <div>
+        <canvas id="graph-chart" />
+    </div>
+    <h4>This is a prototype of how we will be getting data from the database and displaying it on the page.</h4>
+    <p>We made our database, a database abstract layer and are using ajax calls to display. </p>
+    <p>The framework is in MVC, so we have learned how to create new pages and this page also uses the layout mechanism.</p>
+</div>
+<div class="col-md-12">
+</div>
+
+@section sidebar {
+    <p>This is a rendered section</p> }

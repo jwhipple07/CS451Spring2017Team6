@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "GeneralError";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+
+<div class="row" style="border-bottom:1px solid;">
+    <div class="col-sm-4" style="border-right:1px solid; text-align:center;">
+        <span style="font-size: 10em;">:(</span>
+    </div>
+    <div class="col-sm-8" style="font-size: 2em;padding-top:35px;">
+        We're sorry, there was an internal server error that has not been caught by our developers. This is our fault. You can try again if you would like.
+    </div>
+</div>
+<br />
+<div class="col-sm-12">
+    <center><b>Message: </b>@ViewBag.Message</center>
+</div>
+

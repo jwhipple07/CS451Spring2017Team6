@@ -1,0 +1,63 @@
+﻿@model BudgetingApplication.ViewModels.BadgesModelView
+@{
+    ViewBag.Title = "Index";
+    ViewBag.PageName = "Badges";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<meta property="og:url" content="http://www.commercebank.com" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Easy Budgeting Today" />
+<meta property="og:description" content="I achieved a badge for budgeting with Commerce Bank!" />
+<meta property="og:image" content="http://www.your-domain.com/path/image.jpg" />
+
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+  
+<h2 align="center">My Badges</h2>
+
+<br />
+
+@foreach (var item in Model.badges.OrderByDescending(x=>x.ClientBadge.DateEarned))
+{
+    var badge = Model.badges.Where(x => x.BadgeID == item.BadgeID).Single();
+    <div class="col-sm-3 myBadge" align="center">
+        <img src="@Url.Content("~/images/" + item.BadgeName)" data-html="true"  data-toggle="tooltip" title="<b>Earned:</b><em> @item.ClientBadge.DateEarned.ToShortDateString() </em> <br>@badge.Description" data-placement="bottom" />
+        <p style="margin-bottom:20px; margin-top:20px;"> @Url.Content(item.Description)</p>
+</div>
+}
+
+@section sidebar{
+    <div class="badge-sidebar-overview" align="center" style="border-bottom:1px solid; margin-bottom: 10px;">
+        <h3>Badge Progress</h3>
+        <div class="badge-progress-ratio" align="center">
+            @Model.badgeCount out of @Model.totalBadgeCount
+        </div>
+    </div>
+    <div class="badge-sidebar-recent" align="center" style="border-bottom:1px solid; margin-bottom: 10px;">
+        <h4>Most Recent Badge</h4>
+        <div class="badge-progress-ratio" align="center" style="margin-bottom:20px;" title="@Url.Content(Model.mostRecent.Description)">
+            <img src="@Url.Content("~/images/" + Model.mostRecent.BadgeName)" style="max-height: 50px; max-width: 50px;" />
+        </div>
+        <div>
+            <a class="twitter-share-button"
+               href="https://twitter.com/intent/tweet?text=New%20Commerce%20Bank%20Badge:@Url.Content(Model.badges.ElementAt(Model.badgeCount-1).Description)@Url.Content(Model.tweetMessage)">
+                <img src="~/images/tweetbutton.png" style="max-height: 30px; max-width: 55px; margin-bottom: 20px;" />
+            </a>
+        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+            <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
+                <img src="~/images/fb_button.png" style="max-height: 30px; max-width: 55px; margin-bottom: 20px;" />
+            </a>
+        </div>
+        </div>
+    </div>
+  
+
+}

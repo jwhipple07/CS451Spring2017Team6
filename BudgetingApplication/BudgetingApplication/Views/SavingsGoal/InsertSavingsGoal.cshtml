@@ -1,0 +1,98 @@
+﻿@model BudgetingApplication.ViewModels.SavingsGoalsViewModel
+
+@{
+    ViewBag.Title = "InsertSavingsGoal";
+    Layout = "~/Views/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker(); //Initialise any date pickers
+    });
+</script>
+
+<h2>Savings Goal Information</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Savings Goal</h4>
+        <hr />
+                @* hide values that users should not be able to edit *@
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.savingsGoal.SavingGoalID)
+                @Html.HiddenFor(model => model.savingsGoal.CurrentGoalAmount)
+        @* create form fields so users can create/edit goals *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.savingsGoal.GoalDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.savingsGoal.GoalDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.savingsGoal.GoalDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @* convert start and end dates into proper format to insert into database *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.savingsGoal.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.savingsGoal.StartDate, new { htmlAttributes = new { @Value = Model.savingsGoal == null ? "" : Model.savingsGoal.StartDate.ToShortDateString(), @class = "form-control datepicker" } })
+                @Html.ValidationMessageFor(model => model.savingsGoal.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.savingsGoal.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.savingsGoal.EndDate, new { htmlAttributes = new { @Value = Model.savingsGoal == null ? "" : Model.savingsGoal.EndDate.ToShortDateString(), @class = "form-control datepicker" } })
+                @Html.ValidationMessageFor(model => model.savingsGoal.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.savingsGoal.SavingsGoalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8 input-group">
+                <span class="input-group-addon">$</span>
+                @Html.EditorFor(model => model.savingsGoal.SavingsGoalAmount, new { htmlAttributes = new { @class = "form-control" } })
+                
+                @Html.ValidationMessageFor(model => model.savingsGoal.SavingsGoalAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.savingsGoal.Recurring, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @{
+                    //create options for dropdown menu
+                    List<SelectListItem> choices = new List<SelectListItem>();
+                    string yesNo = "Yes";
+                    if (Model.savingsGoal != null)
+                    {
+                        yesNo = Model.savingsGoal.Recurring.Trim();
+                    }
+                    string opposite = yesNo == "Yes" ? "No" : "Yes";
+                    choices.Add(new SelectListItem() { Value = yesNo, Text = yesNo});
+                    choices.Add(new SelectListItem() { Value = opposite, Text = opposite });
+                }
+                @*add choices to dropdown menu*@
+                @Html.DropDownListFor(model => model.savingsGoal.Recurring,
+                 new SelectList(choices, "text", "value")
+                             , new { @class = "form-control" })
+
+
+                @Html.ValidationMessageFor(model => model.savingsGoal.Recurring, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-8">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@* adds button to take user back to goals page *@
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
